@@ -1,0 +1,14 @@
+<div class="container">
+  <h1> Show page for <%=@user.user_name %> </h1>
+  
+  <% if current_user && current_user.id = params[:id] %>
+    <p>Your currently active sessions</p>
+    <ol>
+    <% @user.sessions.each do |session| %>
+      <li>
+        Logged in <%= time_ago_in_words(session.created_at) %> ago on <%= session.environment %>
+      </li>
+    <% end %>
+    </ol>
+  <% end %>
+</div>

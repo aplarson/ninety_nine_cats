@@ -9,7 +9,9 @@ class CatRentalRequestsController < ApplicationController
   
   def create
     @cat_rental_request = CatRentalRequest.new(rental_params)
-    @cat_rental_request.requester_id = current_user.id
+    if current_user
+      @cat_rental_request.requester_id = current_user.id
+    end
     
     if @cat_rental_request.save
       redirect_to cat_url(@cat_rental_request.cat_id)

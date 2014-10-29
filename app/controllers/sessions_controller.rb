@@ -11,8 +11,8 @@ class SessionsController < ApplicationController
   end
   
   def create
-    if @user = self.find_by_user_params
-      login_user!
+    if @user = find_by_user_params
+      login_user!(@user.id)
     else
       @user = User.new(user_params)
       flash.now[:errors] = @user.errors.full_messages
@@ -21,7 +21,8 @@ class SessionsController < ApplicationController
   end
   
   def destroy
-    current_user.reset_session_token!
+    @session = Session.find_by_session_token(session[:session_token])
+    @session.destroy!
     session[:session_token] = nil
     redirect_to cats_url
   end

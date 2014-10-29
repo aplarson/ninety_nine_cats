@@ -7,8 +7,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= flash[:errors] && flash[:errors] %>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <div class="col-md-offset-4">
+      <%= error %>
+    </div>
+  <% end %>
+<% end %>
 
+<div class="col-md-offset-4">
 <% if current_user %>
 Hello, <%= current_user.user_name %>
 <form class='button_to' method='post' action="/session">
@@ -28,6 +35,7 @@ Hello, <%= current_user.user_name %>
 </form>
 
 <% end %>
+</div>
 
 <%= yield %>
 

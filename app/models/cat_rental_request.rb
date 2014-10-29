@@ -2,13 +2,14 @@
 #
 # Table name: cat_rental_requests
 #
-#  id         :integer          not null, primary key
-#  cat_id     :integer          not null
-#  start_date :date             not null
-#  end_date   :date             not null
-#  status     :string(255)      default("PENDING")
-#  created_at :datetime
-#  updated_at :datetime
+#  id           :integer          not null, primary key
+#  cat_id       :integer          not null
+#  start_date   :date             not null
+#  end_date     :date             not null
+#  status       :string(255)      default("PENDING")
+#  created_at   :datetime
+#  updated_at   :datetime
+#  requester_id :integer          not null
 #
 
 class CatRentalRequest < ActiveRecord::Base
