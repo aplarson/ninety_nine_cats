@@ -23,15 +23,20 @@
   </div>
 
   <div class="row">
-    <div class="col-md-1 col-md-offset-4">Start Date</div>
-    <div class="col-md-7">End Date</div>
+    <div class="col-md-2 col-md-offset-3">Start Date</div>
+    <div class="col-md-2">End Date</div>
+    <div class="col-md-5">Requester</div>
   </div>
   
   <% @cat.rental_requests.each do |request| %>
     <div class="row" style="padding: 15px 0px 15px 0px">
-      <div class="col-md-1 col-md-offset-4"><%= request.start_date %></div>
-      <div class="col-md-1"><%= request.end_date %></div>
-      <% if request.pending? %>
+      <div class="col-md-2 col-md-offset-3"><%= request.start_date %></div>
+      <div class="col-md-2"><%= request.end_date %></div>
+      <div class="col-md-2"><%= User.find(request.requester_id).user_name%></div>
+      
+      <% if request.pending? && 
+            current_user && 
+            current_user.id == @cat.user_id %>
       <div class="col-md-1"><%= button_to "Approve",
              approve_cat_rental_request_url(request),
              method: :patch %></div>

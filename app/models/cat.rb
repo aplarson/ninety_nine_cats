@@ -10,6 +10,7 @@
 #  description :text             not null
 #  created_at  :datetime
 #  updated_at  :datetime
+#  user_id     :integer          not null
 #
 
 class Cat < ActiveRecord::Base
@@ -20,11 +21,18 @@ class Cat < ActiveRecord::Base
     "orange"
   ]
   
-  validates :name, :description, presence: true
+  validates :name, :description, :user_id, presence: true
   validates_date :birth_date, on_or_before: Date.current # write your own if you have time
   validates :color, inclusion: { in: COLORS }
   validates :sex, inclusion: { in: ["M", "F"], message: "Must be M or F" }
 
+  belongs_to(
+    :user,
+    class_name: "User",
+    foreign_key: :user_id,
+    primary_key: :id
+  )
+  
   has_many(
     :rental_requests,
     class_name: "CatRentalRequest",

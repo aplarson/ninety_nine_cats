@@ -1,6 +1,16 @@
 class CatRentalRequestsController < ApplicationController
+  before_action only: [:approve, :deny] do |controller|
+    @cat_rental_request = CatRentalRequest.find(params[:id])
+    @cat = Cat.find(@cat_rental_request.cat_id)
+    unless current_user && @cat.user_id == current_user.id
+      redirect_to cats_url
+    end
+  end
+  
   def create
     @cat_rental_request = CatRentalRequest.new(rental_params)
+    @cat_rental_request.requester_id = current_user.id
+    
     if @cat_rental_request.save
       redirect_to cat_url(@cat_rental_request.cat_id)
     else

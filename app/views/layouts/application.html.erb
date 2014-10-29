@@ -10,7 +10,23 @@
 <%= flash[:errors] && flash[:errors] %>
 
 <% if current_user %>
-<%= current_user.user_name %>
+Hello, <%= current_user.user_name %>
+<form class='button_to' method='post' action="/session">
+  <input name='_method' value='delete' type='hidden'>
+  <input name='authenticity_token' 
+         type="hidden" 
+         value="<%=form_authenticity_token %>">
+  <input value='Log out' type='submit'>
+</form>
+
+<% else %>
+<form method='get' action="/session/new">
+  <input name='authenticity_token'
+         type='hidden'
+         value="<%=form_authenticity_token %>">
+  <input value='Log in' type='submit'>
+</form>
+
 <% end %>
 
 <%= yield %>
