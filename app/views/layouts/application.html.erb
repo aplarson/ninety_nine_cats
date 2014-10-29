@@ -8,6 +8,11 @@
 </head>
 <body>
 <%= flash[:errors] && flash[:errors] %>
+
+<% if current_user %>
+<%= current_user.user_name %>
+<% end %>
+
 <%= yield %>
 
 </body>
