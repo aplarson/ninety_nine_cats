@@ -10,13 +10,20 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def current_session
+    Session.find_by_session_token(session[:session_token])
+  end
+  
   helper_method :current_user
+  helper_method :current_session
   
   def login_user!(user_id)
     @session = Session.new
     #request is instance method of controller
     environment = request.env["HTTP_USER_AGENT"]
-    @session.novel_session(user_id, environment)
+    location = request.location.city
+    fail
+    @session.novel_session(user_id, environment, location)
     session[:session_token] = @session.session_token
     
     redirect_to cats_url

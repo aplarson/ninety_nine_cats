@@ -8,6 +8,7 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  environment   :string(255)      not null
+#  location      :string(255)      not null
 #
 
 class Session < ActiveRecord::Base
@@ -26,7 +27,8 @@ class Session < ActiveRecord::Base
     self.session_token ||= SecureRandom.urlsafe_base64
   end
   
-  def novel_session(user_id, environment)
+  def novel_session(user_id, environment, location)
+    self.location = location
     self.environment = environment
     self.user_id = user_id
     self.session_token = SecureRandom.urlsafe_base64

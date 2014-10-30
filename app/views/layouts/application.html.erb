@@ -17,8 +17,10 @@
 
 <div class="col-md-offset-4">
 <% if current_user %>
-Hello, <%= current_user.user_name %>
-<form class='button_to' method='post' action="/session">
+Hello, <%= link_to current_user.user_name, user_url(current_user) %>
+<form class='button_to' 
+   method='post' 
+   action="<%= session_url(current_session)%>">
   <input name='_method' value='delete' type='hidden'>
   <input name='authenticity_token' 
          type="hidden" 
@@ -27,7 +29,7 @@ Hello, <%= current_user.user_name %>
 </form>
 
 <% else %>
-<form method='get' action="/session/new">
+<form method='get' action="/sessions/new">
   <input name='authenticity_token'
          type='hidden'
          value="<%=form_authenticity_token %>">

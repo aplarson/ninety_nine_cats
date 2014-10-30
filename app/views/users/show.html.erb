@@ -6,7 +6,14 @@
     <ol>
     <% @user.sessions.each do |session| %>
       <li>
-        Logged in <%= time_ago_in_words(session.created_at) %> ago on <%= session.environment %>
+        Logged in <%= time_ago_in_words(session.created_at) %> ago on <%= session.environment %> at <%= session.location %>
+        <form class='button_to' method='post' action="<%= session_url(session) %>">
+          <input name='_method' value='delete' type='hidden'>
+          <input name='authenticity_token' 
+                 type="hidden" 
+                 value="<%=form_authenticity_token %>">
+          <input value='Log out' type='submit'>
+        </form>
       </li>
     <% end %>
     </ol>
