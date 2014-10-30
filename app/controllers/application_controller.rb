@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
     #request is instance method of controller
     environment = request.env["HTTP_USER_AGENT"]
     location = request.location.city
-    fail
     @session.novel_session(user_id, environment, location)
     session[:session_token] = @session.session_token
     
