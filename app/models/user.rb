@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   
   validates :user_name, :password_digest, presence: true
   validates :user_name, uniqueness: true
+  validates :password, length: { minimum: 6, allow_nil: true }
 
   has_many(
     :cats,
@@ -42,6 +43,7 @@ class User < ActiveRecord::Base
   end
   
   def password=(password)
+    @password = password
     self.password_digest = BCrypt::Password.create(password)
   end
   

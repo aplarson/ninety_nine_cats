@@ -7,36 +7,40 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if flash[:errors] %>
-  <% flash[:errors].each do |error| %>
-    <div class="col-md-offset-4">
-      <%= error %>
-    </div>
+<div class="container">
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |error| %>
+      <div class="col-md-offset-4">
+        <%= error %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
 
-<div class="col-md-offset-4">
-<% if current_user %>
-Hello, <%= link_to current_user.user_name, user_url(current_user) %>
-<form class='button_to' 
-   method='post' 
-   action="<%= session_url(current_session)%>">
-  <input name='_method' value='delete' type='hidden'>
-  <input name='authenticity_token' 
-         type="hidden" 
-         value="<%=form_authenticity_token %>">
-  <input value='Log out' type='submit'>
-</form>
+  <% if current_user %>
+  Hello, <%= link_to current_user.user_name, user_url(current_user) %>
+    <form class='button_to' 
+       method='post' 
+       action="<%= session_url(current_session)%>">
+      <input name='_method' value='delete' type='hidden'>
+      <input name='authenticity_token' 
+             type="hidden" 
+             value="<%=form_authenticity_token %>">
+      <input value='Log out' type='submit'>
+    </form>
 
-<% else %>
-<form method='get' action="/sessions/new">
-  <input name='authenticity_token'
-         type='hidden'
-         value="<%=form_authenticity_token %>">
-  <input value='Log in' type='submit'>
-</form>
+  <% else %>
+    <div class="col-md-2 col-md-offset-4">
+      <form method='get' action="/sessions/new">
+        <input value='Log in' type='submit' class="btn btn-default">
+      </form>
+    </div>
+    <div class="col-md-2">
+      <form method='get' action="/users/new">
+        <input value='Sign up!' type='submit' class="btn btn-default">
+      </form>
+    </div>
 
-<% end %>
+  <% end %>
 </div>
 
 <%= yield %>

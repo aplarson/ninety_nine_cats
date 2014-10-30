@@ -13,7 +13,6 @@ development:
   adapter: postgresql
   database: ninety_nine_cats_dev
   host: localhost
-  username: appacademy
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
